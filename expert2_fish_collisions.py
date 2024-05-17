@@ -21,11 +21,11 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
 # Load background image
-ocean_background = pygame.image.load("water_background.png")
+ocean_background = pygame.image.load("images/water_background.png")
 ocean_background = pygame.transform.scale(ocean_background, (WIDTH, HEIGHT))
 
 # Load fish.png image into fish_sprite, facing left (default)
-fish_sprite = pygame.image.load("fish.png")
+fish_sprite = pygame.image.load("images/fish.png")
 
 # Create a Rect object called dory, using fish_sprite.get_rect() to 
 # set the Rect dimensions exactly to the size of the image loaded
@@ -85,6 +85,7 @@ while running:
     # DEBUG: Output list of all tracked food
     print(f"fish_food_list at {fish_food_list}")
     
+
     # Update and draw fish food, iterating through list of all food
     for single_food in fish_food_list:
         # Unpack each and assign x, y, radius
@@ -96,6 +97,25 @@ while running:
         if y >= HEIGHT:
             fish_food_list.remove(single_food)
     
+
+    # Collision detection between dory and fish food
+    for single_food in fish_food_list:
+        # Define a Rect around the individual food using x, y, radius
+        single_food_rect = pygame.Rect(single_food[0] - single_food[2], single_food[1] - single_food[2], single_food[2] * 2, single_food[2] * 2)
+
+        # Check for collision between Rects
+        if dory.colliderect(single_food_rect):
+            # Flip direction
+            if direction == -1:
+                direction = 1
+                fish_sprite = pygame.transform.flip(fish_sprite, True, False)
+            elif direction == 1:
+                direction = -1
+                fish_sprite = pygame.transform.flip(fish_sprite, True, False)
+            # Remove the collided food
+            fish_food_list.remove(single_food)
+
+
     # Update display
     pygame.display.flip()
     

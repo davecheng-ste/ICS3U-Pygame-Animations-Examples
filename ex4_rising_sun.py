@@ -1,6 +1,6 @@
 """
 Author: D. Cheng
-Date: 2024-05-16
+Date: 2024-05-17
 Description: Example Pygame animation. 
 """
 
@@ -17,20 +17,10 @@ pygame.display.set_caption("Example Animations")
 # Define colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
-BLUE = (135, 206, 235)
-
 
 # Load sprites
-grass = pygame.image.load("grass.png")
-grass = pygame.transform.scale(grass, (WIDTH, HEIGHT))
-
-sun = pygame.image.load("sun.png")
 
 # Create a Rect object for sprite and set initial position
-moving_sun = sun.get_rect()
-
-moving_sun.x = 400
-moving_sun.bottom = HEIGHT
 
 # Define main loop
 running = True
@@ -42,14 +32,11 @@ while running:
         if event.type == pygame.QUIT:
             running = False
     
-    # Move sprite vertically
-    if moving_sun.top >= 50:
-        moving_sun.y -= 2
-    
+
+
+
     # Draw graphics
-    screen.fill(BLUE)
-    screen.blit(sun, moving_sun)
-    screen.blit(grass, (0, 0))
+    screen.fill(WHITE)
     
     # Update display
     pygame.display.flip()

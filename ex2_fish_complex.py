@@ -24,13 +24,13 @@ pygame.display.set_caption("Example Animations")
 # NOTE: More than just a variable name, we are technically creating an 
 #       object called 'ocean_background' that can be manipulated and 
 #       displayed on screen.
-ocean_background = pygame.image.load("water_background.png")
+ocean_background = pygame.image.load("images/water_background.png")
 
 # Scale the background image to fill the entire screen
 ocean_background = pygame.transform.scale(ocean_background, (WIDTH, HEIGHT))
 
 # Load fish.png image into fish_sprite, facing left (default)
-fish_sprite = pygame.image.load("fish.png")
+fish_sprite = pygame.image.load("images/fish.png")
 
 # Create a Rect object called dory, using fish_sprite.get_rect() to 
 # set the Rect dimensions exactly to the size of the image loaded
