@@ -25,15 +25,16 @@ TEAL = (93, 138, 168)
 road_background = pygame.image.load("images/road.png")
 road_background = pygame.transform.scale(road_background, (WIDTH, HEIGHT))
 
-# Load police car sprite
+# Load police car sprite and scale to larger size
 police_car = pygame.image.load("images/police_car.png")
+police_car = pygame.transform.scale_by(police_car, 2.2)
 
 # Create a Rect object to set the Rect dimensions exactly to the size
 # of the police_car sprite
 police_car_rect = police_car.get_rect()
 
 # Set initial position of police car
-police_car_rect.x = 400
+police_car_rect.x = 356
 police_car_rect.y = 500
 
 # Define main loop
