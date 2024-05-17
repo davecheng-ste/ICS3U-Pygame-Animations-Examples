@@ -32,6 +32,9 @@ ocean_background = pygame.transform.scale(ocean_background, (WIDTH, HEIGHT))
 # Load fish.png image into fish_sprite, facing left (default)
 fish_sprite = pygame.image.load("images/fish.png")
 
+# Scale the fish image to be 2x the size
+fish_sprite = pygame.transform.scale_by(fish_sprite, 2)
+
 # Create a Rect object called dory, using fish_sprite.get_rect() to 
 # set the Rect dimensions exactly to the size of the image loaded
 # with fish_sprite 
