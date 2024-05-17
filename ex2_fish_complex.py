@@ -49,8 +49,8 @@ clock = pygame.time.Clock()  # Create a Clock object for controlling frame rate
 direction = -1
 
 # Define parameters for sinusoidal oscillation
-# amplitude = 50  # Movement is 100 pixels peak-to-peak
-# frequency = 0.02  # Speed of oscillation
+amplitude = 50  # Movement is 100 pixels peak-to-peak
+frequency = 0.02  # Speed of oscillation
 
 
 while running:
@@ -61,19 +61,19 @@ while running:
     
     # Handle change in position 
     dory.x += 5 * direction  # Move sprite horizontally 5px
-    # dory.y = 300 + amplitude * math.sin(frequency * dory.x)  # y-pos based on x-pos
+    dory.y = 300 + amplitude * math.sin(frequency * dory.x)  # y-pos based on x-pos
  
     # Manage screen edge contact
     if dory.left == 0:
         # Change direction to right-moving
         direction = 1
         # Flip sprite image horizontally
-        # fish_sprite = pygame.transform.flip(fish_sprite, True, False)
+        fish_sprite = pygame.transform.flip(fish_sprite, True, False)
     elif dory.right == WIDTH:
         # Change direction to left-moving
         direction = -1
         # Flip sprite image horizontally
-        # fish_sprite = pygame.transform.flip(fish_sprite, True, False)
+        fish_sprite = pygame.transform.flip(fish_sprite, True, False)
     
     # Draw background ocean_background at location (0, 0)
     screen.blit(ocean_background, (0, 0))
@@ -82,7 +82,7 @@ while running:
     screen.blit(fish_sprite, dory)
     
     # DEBUG: Output dory (x, y) coordinates
-    # print(f"dory position at ({dory.x}, {dory.y})", end="\r")
+    print(f"dory position at ({dory.x}, {dory.y})", end="\r")
 
     # Update display
     pygame.display.flip()
