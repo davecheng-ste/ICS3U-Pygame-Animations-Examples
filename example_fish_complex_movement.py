@@ -1,20 +1,31 @@
+"""
+File: example_fish_edge_flip.py
+Author: D. Cheng
+Date: 2024-05-16
+Description: Animation of fish flipping directions at screen edges.
+"""
+
 import pygame
 import sys
+import math
 
 # Initialize Pygame
 pygame.init()
 
 # Set up the display
+# NOTE: You can change the display width and height if your background
+#       image calls for other proportions or sizes.
 WIDTH, HEIGHT = 800, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Example Animations")
 
-# Define colors
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-
 # Load background image
+# NOTE: More than just a variable name, we are technically creating an 
+#       object called 'ocean_background' that can be manipulated and 
+#       displayed on screen.
 ocean_background = pygame.image.load("water_background.png")
+
+# Scale the background image to fill the entire screen
 ocean_background = pygame.transform.scale(ocean_background, (WIDTH, HEIGHT))
 
 # Load fish.png image into fish_sprite, facing left (default)
@@ -29,30 +40,28 @@ dory = fish_sprite.get_rect()
 dory.x = 400
 dory.y = 300
 
-# Define main loop
+# Define main loop (leave this)
 running = True
 clock = pygame.time.Clock()  # Create a Clock object for controlling frame rate
 
 # Define direction multiplier, -1 for left-moving, 1 for right-moving
 direction = -1
 
-# Store the falling circles' positions and radii in a list
-falling_circles = []
+# Define parameters for sinusoidal oscillation
+# amplitude = 50  # Movement is 100 pixels peak-to-peak
+# frequency = 0.02  # Speed of oscillation
+
 
 while running:
-    # Handle events
+    # Handle events (leave this)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        elif event.type == pygame.MOUSEBUTTONDOWN:
-            # If left mouse button clicked, create a falling circle at mouse position
-            if event.button == 1:
-                x, y = event.pos
-                falling_circles.append([x, y, 10])  # [x, y, radius]
     
-    # Move sprite horizontally
-    dory.x += 5 * direction
-    
+    # Handle change in position 
+    dory.x += 5 * direction  # Move sprite horizontally 5px
+    # dory.y = 300 + amplitude * math.sin(frequency * dory.x)  # y-pos based on x-pos
+ 
     # Manage screen edge contact
     if dory.left == 0:
         # Change direction to right-moving
@@ -65,27 +74,19 @@ while running:
         # Flip sprite image horizontally
         fish_sprite = pygame.transform.flip(fish_sprite, True, False)
     
-    # Draw background
+    # Draw background ocean_background at location (0, 0)
     screen.blit(ocean_background, (0, 0))
     
-    # Draw sprite image
+    # Draw sprite image fish_sprite at location of dory
     screen.blit(fish_sprite, dory)
     
-    # Update and draw falling circles
-    for circle in falling_circles:
-        # Unpack list item and assign to x, y, radius
-        x, y, radius = circle
-        pygame.draw.circle(screen, WHITE, (x, y), radius)
-        # Update falling circle's position (move it down)
-        circle[1] += 5 # Increment y-coordinate
-        # If falling circle reaches the bottom, remove it from the list
-        if y + radius >= HEIGHT:
-            falling_circles.remove(circle)
-    
+    # DEBUG: Output dory (x, y) coordinates
+    print(f"dory position at ({dory.x}, {dory.y})", end="\r")
+
     # Update display
     pygame.display.flip()
-    
-    # Limit frame rate to 30 fps
+
+    # Limit frame rate to 30 fps before refreshing loop
     clock.tick(30)
 
 # Quit Pygame   

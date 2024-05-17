@@ -1,3 +1,10 @@
+"""
+File: main.py
+Author: YOUR NAME
+Date: YYYY-MM-DD
+Description: Description of your program here.
+"""
+
 import pygame
 import sys
 
@@ -73,6 +80,7 @@ while running:
     
     # Update and draw falling circles
     for circle in falling_circles:
+        # Unpack list item and assign to x, y, radius
         x, y, radius = circle
         pygame.draw.circle(screen, WHITE, (x, y), radius)
         # Update falling circle's position (move it down)
@@ -81,20 +89,6 @@ while running:
         if y + radius >= HEIGHT:
             falling_circles.remove(circle)
     
-    # Collision detection between dory and falling circles
-    for circle in falling_circles:
-        circle_rect = pygame.Rect(circle[0] - circle[2], circle[1] - circle[2], circle[2] * 2, circle[2] * 2)
-        if dory.colliderect(circle_rect):
-            # Flip direction
-            if direction == -1:
-                direction = 1
-                fish_sprite = pygame.transform.flip(fish_sprite, True, False)
-            elif direction == 1:
-                direction = -1
-                fish_sprite = pygame.transform.flip(fish_sprite, True, False)
-            # Remove the collided circle
-            falling_circles.remove(circle)
-
     # Update display
     pygame.display.flip()
     
