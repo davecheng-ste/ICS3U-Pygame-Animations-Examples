@@ -7,6 +7,7 @@ Description: Moving fish animation with mouse-click event
 
 import pygame
 import sys
+import random
 
 # Initialize Pygame
 pygame.init()
@@ -55,8 +56,8 @@ while running:
             if event.button == 1:
                 # Get x, y of mouse-click from event handler
                 x, y = event.pos
-                # Add new instance to fish food list
-                fish_food_list.append([x, y, 7])  # Format: [x-position, y-position, radius]
+                # Add new instance to fish food list, use random radius
+                fish_food_list.append([x, y, random.randint(3, 7)]) 
         # On window quit, end loop
         elif event.type == pygame.QUIT:
             running = False

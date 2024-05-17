@@ -1,7 +1,7 @@
 """
 Author: D. Cheng
 Date: 2024-05-16
-Description: Moving fish animation with mouse-click event 
+Description: Moving fish animation plus mouse-click event. Uses list of lists
 """
 
 
