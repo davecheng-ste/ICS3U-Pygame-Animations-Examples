@@ -1,8 +1,7 @@
 """
-File: rising_sun.py
 Author: D. Cheng
 Date: 2024-05-16
-Description: Example Pygame animation.
+Description: Example Pygame animation. 
 """
 
 import pygame

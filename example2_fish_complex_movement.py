@@ -1,13 +1,14 @@
 """
-File: example_simple_fish.py
 Author: D. Cheng
 Date: 2024-05-16
-Description: Example Pygame animation - simplified fish sprite on background
-             image with additional documentation.
+Description: Animation of fish flipping directions at screen edges. Additional
+             options to mirror sprite image, and add vertical oscillation to
+             the fish movement.
 """
 
 import pygame
 import sys
+import math  # Only necessary for sine function
 
 # Initialize Pygame
 pygame.init()
@@ -19,10 +20,6 @@ WIDTH, HEIGHT = 800, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Example Animations")
 
-# Define colors
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
-
 # Load background image
 # NOTE: More than just a variable name, we are technically creating an 
 #       object called 'ocean_background' that can be manipulated and 
@@ -32,7 +29,7 @@ ocean_background = pygame.image.load("water_background.png")
 # Scale the background image to fill the entire screen
 ocean_background = pygame.transform.scale(ocean_background, (WIDTH, HEIGHT))
 
-# Load fish.png image into fish_sprite
+# Load fish.png image into fish_sprite, facing left (default)
 fish_sprite = pygame.image.load("fish.png")
 
 # Create a Rect object called dory, using fish_sprite.get_rect() to 
@@ -48,18 +45,35 @@ dory.y = 300
 running = True
 clock = pygame.time.Clock()  # Create a Clock object for controlling frame rate
 
+# Define direction multiplier, -1 for left-moving, 1 for right-moving
+direction = -1
+
+# Define parameters for sinusoidal oscillation
+# amplitude = 50  # Movement is 100 pixels peak-to-peak
+# frequency = 0.02  # Speed of oscillation
+
+
 while running:
     # Handle events (leave this)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
     
-    # Move sprite horizontally 5px with every screen refresh
-    dory.x -= 5
-    
-    # Reset position if sprite goes off the left
-    if dory.right <= 0:
-        dory.left = WIDTH
+    # Handle change in position 
+    dory.x += 5 * direction  # Move sprite horizontally 5px
+    # dory.y = 300 + amplitude * math.sin(frequency * dory.x)  # y-pos based on x-pos
+ 
+    # Manage screen edge contact
+    if dory.left == 0:
+        # Change direction to right-moving
+        direction = 1
+        # Flip sprite image horizontally
+        # fish_sprite = pygame.transform.flip(fish_sprite, True, False)
+    elif dory.right == WIDTH:
+        # Change direction to left-moving
+        direction = -1
+        # Flip sprite image horizontally
+        # fish_sprite = pygame.transform.flip(fish_sprite, True, False)
     
     # Draw background ocean_background at location (0, 0)
     screen.blit(ocean_background, (0, 0))
